@@ -9,11 +9,345 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
-    body { font-family: 'Inter', sans-serif; }
-    .hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
-    .architecture-diagram { max-width: 800px; margin: 2rem auto; }
-    .audio-demo { margin: 2rem 0; padding: 1rem; border: 1px solid #e1e5e9; border-radius: 8px; }
-    .audio-player { width: 100%; margin: 1rem 0; }
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+    :root {
+      --primary-color: #0f172a;
+      --secondary-color: #1e293b;
+      --accent-color: #06b6d4;
+      --accent-secondary: #3b82f6;
+      --text-color: #334155;
+      --text-light: #64748b;
+      --bg-color: #f8fafc;
+      --bg-secondary: #f1f5f9;
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      --gradient-primary: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+      --gradient-accent: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      background: var(--bg-color);
+      margin: 0;
+      padding: 0;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .hero {
+      background: var(--gradient-primary);
+      color: white;
+      position: relative;
+      overflow: hidden;
+      padding: 8rem 1.5rem 6rem;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(6, 182, 212, 0.05) 0%, transparent 50%);
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='20' cy='20' r='2'/%3E%3Ccircle cx='50' cy='70' r='1.5'/%3E%3Ccircle cx='80' cy='30' r='1'/%3E%3Ccircle cx='30' cy='80' r='1.5'/%3E%3Ccircle cx='70' cy='50' r='1'/%3E%3C/g%3E%3C/svg%3E") repeat;
+    }
+
+    .hero .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero .title {
+      font-weight: 800;
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      color: #ffffff;
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.4);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .hero .subtitle {
+      font-size: 1.25rem;
+      margin-bottom: 3rem;
+      color: #e2e8f0;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero .buttons {
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+
+    .hero .button {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      border-radius: 12px;
+      padding: 1rem 2rem;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero .button:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero .button .icon {
+      margin-right: 0.5rem;
+    }
+
+    .section {
+      padding: 6rem 1.5rem;
+    }
+
+    .section .title {
+      color: var(--primary-color);
+      font-weight: 700;
+      margin-bottom: 3rem;
+      position: relative;
+      font-size: 2.25rem;
+      letter-spacing: -0.025em;
+      text-align: center;
+    }
+
+    .section .title::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--gradient-accent);
+      border-radius: 2px;
+      box-shadow: 0 2px 4px rgba(6, 182, 212, 0.3);
+    }
+
+    .architecture-diagram {
+      max-width: 900px;
+      margin: 3rem auto;
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid var(--border-color);
+    }
+
+    .architecture-diagram:hover {
+      transform: scale(1.02) translateY(-5px);
+      box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.25);
+    }
+
+    .audio-demo {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 2.5rem;
+      margin: 1.5rem 0;
+      box-shadow: var(--shadow);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .audio-demo::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: var(--gradient-accent);
+    }
+
+    .audio-demo:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(6, 182, 212, 0.2);
+    }
+
+    .audio-demo .title {
+      color: var(--primary-color);
+      font-size: 1.375rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .audio-demo .subtitle {
+      color: var(--text-light);
+      font-size: 1rem;
+      margin-bottom: 2rem;
+      line-height: 1.5;
+      font-weight: 400;
+    }
+
+    .audio-player {
+      width: 100%;
+      margin: 1.5rem 0;
+      border-radius: 12px;
+      background: var(--bg-secondary);
+      padding: 0.75rem;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .audio-player::-webkit-media-controls-panel {
+      background: var(--bg-secondary);
+      border-radius: 8px;
+    }
+
+    .audio-player::-webkit-media-controls-current-time-display,
+    .audio-player::-webkit-media-controls-time-remaining-display {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875rem;
+      color: var(--text-color);
+    }
+
+    .footer {
+      background: var(--gradient-primary);
+      color: white;
+      padding: 3rem 1.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Ccircle cx='7' cy='7' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+    }
+
+    .footer .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer p {
+      margin: 0.5rem 0;
+      opacity: 0.9;
+      font-weight: 400;
+    }
+
+    .footer .fas {
+      color: var(--accent-color);
+    }
+
+    /* 响应式设计 */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 4rem 1rem 3rem;
+      }
+
+      .hero .title {
+        font-size: 2.25rem;
+        letter-spacing: -0.03em;
+      }
+
+      .hero .subtitle {
+        font-size: 1.1rem;
+      }
+
+      .hero .buttons {
+        gap: 1rem;
+      }
+
+      .hero .button {
+        padding: 0.875rem 1.5rem;
+        font-size: 0.9rem;
+      }
+
+      .section {
+        padding: 4rem 1rem;
+      }
+
+      .section .title {
+        font-size: 1.875rem;
+      }
+
+      .audio-demo {
+        padding: 2rem 1.5rem;
+      }
+
+      .column.is-half {
+        padding: 0.5rem;
+        }
+      }
+
+    @media (max-width: 480px) {
+      .hero .title {
+        font-size: 2rem;
+      }
+
+      .audio-demo {
+        padding: 1.5rem 1rem;
+      }
+    }
+
+    /* 动画效果 */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .section {
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .audio-demo {
+      animation: fadeInUp 0.8s ease-out;
+      animation-fill-mode: both;
+    }
+
+    .audio-demo:nth-child(1) { animation-delay: 0.1s; }
+    .audio-demo:nth-child(2) { animation-delay: 0.2s; }
+    .audio-demo:nth-child(3) { animation-delay: 0.3s; }
+    .audio-demo:nth-child(4) { animation-delay: 0.4s; }
   </style>
 </head>
 <body>
@@ -23,54 +357,85 @@
         <h1 class="title is-2">AuDirector: A Self-Reflective Closed-Loop Framework for Immersive Audio Storytelling</h1>
         <p class="subtitle is-5">Yiming Ren, Xuenan Xu, Ziyang Zhang, Wen Wu, Baoxiang Li, Chao Zhang</p>
         <div class="buttons is-centered">
-          <a href="#" class="button is-dark"><i class="fas fa-file-pdf"></i> Paper</a>
-          <a href="#" class="button is-dark"><i class="fab fa-github"></i> Code</a>
-          <a href="#" class="button is-dark"><i class="ai ai-arxiv"></i> arXiv</a>
-        </div>
+          <a href="#" class="button is-light is-large">
+            <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                        <span>Paper</span>
+                      </a>
+          <a href="#" class="button is-light is-large">
+            <span class="icon"><i class="fab fa-github"></i></span>
+                    <span>Code</span>
+                  </a>
+          
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
 
   <section class="section">
     <div class="container">
       <div class="columns is-centered">
-        <div class="column is-three-quarters">
+        <div class="column is-four-fifths">
+          <div class="has-text-centered" style="margin-bottom: 3rem;">
+            <i class="fas fa-quote-left" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+    </div>
           <h2 class="title is-3 has-text-centered">Abstract</h2>
-          <div class="content has-text-justified">
-            <p>
+          <div class="content has-text-justified" style="background: var(--card-bg); padding: 3rem; border-radius: 20px; box-shadow: var(--shadow-lg); font-size: 1.125rem; line-height: 1.8; border: 1px solid var(--border-color);">
+            <p style="color: var(--text-color); margin-bottom: 1.5rem;">
               Despite advances in text and visual generation, creating coherent long-form audio narratives remains challenging.
               Existing frameworks often exhibit limitations such as mismatched character settings with voice performance, insufficient self-correction mechanisms, and limited human interactivity.
-              To address these challenges, we propose <strong>AuDirector</strong>, a self-reflective closed-loop multi-agent framework.
+              To address these challenges, we propose <strong style="color: var(--accent-color); font-weight: 600;">AuDirector</strong>, a self-reflective closed-loop multi-agent framework.
               Specifically, it involves an Identity-Aware Pre-production mechanism that transforms narrative texts into character profiles and utterance-level emotional instructions to retrieve suitable voice candidates and guide expressive speech synthesis, thereby promoting context-aligned voice adaptation.
               To enhance quality, a Collaborative Synthesis and Correction module introduces a closed-loop self-correction mechanism to systematically audit and regenerate defective audio components.
               Furthermore, a Human-Guided Interactive Refinement module facilitates user control by interpreting natural language feedback to interactively refine the underlying scripts.
               Experiments demonstrate that AuDirector achieves superior performance compared to state-of-the-art baselines in structural coherence, emotional expressiveness, and acoustic fidelity.
-            </p>
-          </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="section">
+  <section class="section" style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);">
     <div class="container">
+      <div class="has-text-centered" style="margin-bottom: 2rem;">
+        <i class="fas fa-project-diagram" style="font-size: 2.5rem; color: var(--primary-color);"></i>
+      </div>
       <h2 class="title is-3 has-text-centered">Framework Architecture</h2>
       <div class="has-text-centered">
-        <img src="static/images/architecture.png" alt="AuDirector Framework Architecture" class="architecture-diagram" style="width: 100%; max-width: 800px;">
-        <p class="is-size-6 has-text-grey">Overview of the AuDirector framework showing the three main components: Identity-Aware Pre-production, Collaborative Synthesis and Correction, and Human-Guided Interactive Refinement.</p>
+        <div style="background: var(--card-bg); padding: 2.5rem; border-radius: 20px; box-shadow: var(--shadow-lg); display: inline-block; border: 1px solid var(--border-color);">
+          <img src="static/images/architecture.png" alt="AuDirector Framework Architecture" class="architecture-diagram" style="width: 100%; max-width: 800px; border-radius: 12px;">
       </div>
-    </div>
-  </section>
+        <div style="max-width: 900px; margin: 3rem auto; padding: 0 1rem;">
+          <p class="is-size-6" style="line-height: 1.7; color: var(--text-light); font-weight: 500;">
+            Overview of the AuDirector framework showing the three main components:
+            <strong style="color: var(--accent-color); font-weight: 600;">Identity-Aware Pre-production</strong>,
+            <strong style="color: var(--accent-secondary); font-weight: 600;">Collaborative Synthesis and Correction</strong>, and
+            <strong style="color: var(--primary-color); font-weight: 600;">Human-Guided Interactive Refinement</strong>.
+          </p>
+  </div>
+</div>
+</div>
+</section>
 
   <section class="section">
     <div class="container">
+      <div class="has-text-centered" style="margin-bottom: 2rem;">
+        <i class="fas fa-play-circle" style="font-size: 2.5rem; color: var(--primary-color);"></i>
+      </div>
       <h2 class="title is-3 has-text-centered">Audio Demonstrations</h2>
+      <p class="has-text-centered is-size-5 has-text-grey" style="margin-bottom: 3rem;">Explore the capabilities of AuDirector through interactive audio examples</p>
 
       <div class="columns is-multiline">
         <div class="column is-half">
-          <div class="audio-demo box">
-            <h4 class="title is-5">Demo 1: Character Voice Adaptation</h4>
+          <div class="audio-demo">
+            <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+              <div style="background: var(--gradient-accent); color: white; border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);">
+                <i class="fas fa-user"></i>
+              </div>
+              <div>
+                <h4 class="title is-5" style="margin: 0;">Character Voice Adaptation</h4>
+              </div>
+            </div>
             <p class="subtitle is-6">Example of identity-aware voice selection and emotional expression</p>
             <audio controls class="audio-player">
               <source src="static/audio/demo1.mp3" type="audio/mpeg">
@@ -80,19 +445,33 @@
         </div>
 
         <div class="column is-half">
-          <div class="audio-demo box">
-            <h4 class="title is-5">Demo 2: Self-Correction Mechanism</h4>
+          <div class="audio-demo">
+            <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+              <div style="background: linear-gradient(135deg, #10b981, #059669); color: white; border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);">
+                <i class="fas fa-sync-alt"></i>
+              </div>
+              <div>
+                <h4 class="title is-5" style="margin: 0;">Self-Correction Mechanism</h4>
+      </div>
+    </div>
             <p class="subtitle is-6">Before and after correction of audio artifacts</p>
             <audio controls class="audio-player">
               <source src="static/audio/demo2.mp3" type="audio/mpeg">
               Your browser does not support the audio element.
             </audio>
-          </div>
+  </div>
         </div>
 
         <div class="column is-half">
-          <div class="audio-demo box">
-            <h4 class="title is-5">Demo 3: Interactive Refinement</h4>
+          <div class="audio-demo">
+            <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+              <div style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white; border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);">
+                <i class="fas fa-comments"></i>
+              </div>
+              <div>
+                <h4 class="title is-5" style="margin: 0;">Interactive Refinement</h4>
+              </div>
+            </div>
             <p class="subtitle is-6">User feedback integration example</p>
             <audio controls class="audio-player">
               <source src="static/audio/demo3.mp3" type="audio/mpeg">
@@ -102,18 +481,25 @@
         </div>
 
         <div class="column is-half">
-          <div class="audio-demo box">
-            <h4 class="title is-5">Demo 4: Complete Audio Narrative</h4>
+          <div class="audio-demo">
+            <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+              <div style="background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);">
+                <i class="fas fa-book-open"></i>
+              </div>
+              <div>
+                <h4 class="title is-5" style="margin: 0;">Complete Audio Narrative</h4>
+              </div>
+            </div>
             <p class="subtitle is-6">Full example of immersive audio storytelling</p>
             <audio controls class="audio-player">
               <source src="static/audio/demo4.mp3" type="audio/mpeg">
               Your browser does not support the audio element.
             </audio>
-          </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
 
 
@@ -135,9 +521,13 @@
 
   <footer class="footer">
     <div class="container has-text-centered">
-      <p>&copy; 2024 AuDirector Team. Built with Bulma CSS.</p>
-    </div>
-  </footer>
+      <div style="margin-bottom: 1rem;">
+        <i class="fas fa-heart" style="color: #ef4444; margin-right: 0.5rem;"></i>
+        <span>&copy; 2024 AuDirector Team</span>
+      </div>
+      <p style="margin: 0; opacity: 0.7;">Built with ❤️ using Bulma CSS</p>
+  </div>
+</footer>
 
   </body>
   </html>
