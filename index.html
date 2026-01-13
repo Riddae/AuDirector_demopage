@@ -145,6 +145,54 @@
       font-family: 'Roboto Mono', monospace;
       overflow-x: auto;
     }
+    /* 新增：播客卡片样式 */
+    .podcast-container {
+      background-color: #f0f0f0; /* 类似图片中的浅灰色背景 */
+      padding: 3rem 2rem;
+      border-radius: 12px;
+    }
+
+    .showcase-title {
+      font-family: 'serif'; /* 模仿图片中的衬线体标题 */
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #666;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .podcast-card {
+      background-color: #ffffff;
+      padding: 2.5rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      margin-bottom: 2.5rem;
+      transition: transform 0.3s ease;
+    }
+
+    .podcast-topic {
+      font-family: 'serif';
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #444;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      line-height: 1.4;
+      padding: 0 10%;
+    }
+
+    .video-wrapper {
+      width: 100%;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: #a3c1ad; /* 模仿图中视频未加载时的色调 */
+    }
+
+    video {
+      display: block;
+      width: 100%;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
   </style>
 </head>
 <body>
@@ -199,28 +247,48 @@
         </div>
 
         <div class="content-section">
-          <h2 class="section-header">Experiment (Demo)</h2>
-          
-          <div class="columns is-multiline">
+          <div class="podcast-container">
+            <h2 class="showcase-title">Sample Demonstrations</h2>
             
-            <div class="column is-6"> <h3 class="demo-title">1. Video-to-Multiaudio Generation</h3>
-              <p class="mb-2 is-size-7 has-text-grey">Input: “唐僧师徒四人夜宿荒庙，揭开受困老僧的孤魂真相。”</p>
-              <audio controls style="width: 100%; margin-bottom: 1.5rem;">
-                <source src="static/audio/xyj.wav" type="audio/mpeg">
-              </audio>
+            <div class="podcast-card">
+              <p class="podcast-topic">Input: Sherlock Holmes and Dr. Watson keep night watch at Baker Street, exposing the charade of a "dead father's" haunting through red clay on boots and gunpowder traces.</p>
+              <div class="video-wrapper">
+                <video id="video1" controls playsinline>
+                  <source src="static/videos/xlk.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
             </div>
 
-            <div class="column is-6">
-              <h3 class="demo-title">2. Text-to-Audio Drama</h3>
-              <p class="mb-2 is-size-7 has-text-grey">Input: “钢琴家苏羽在老城区雨夜街角重逢昔日旧爱。”</p>
-              <audio controls style="width: 100%; margin-bottom: 1rem;">
-                <source src="static/audio/piano.wav" type="audio/mpeg">
-              </audio>
+            <div class="podcast-card">
+              <p class="podcast-topic">Input: In an era where Spotify/Apple Music is readily available and almost free, why should someone spend hundreds of dollars on a bulky vinyl record and have to endure the hassle of changing faces?</p>
+              <div class="video-wrapper">
+                <video id="video2" controls playsinline>
+                  <source src="static/videos/podcast.mp4" type="video/mp4">
+                </video>
+              </div>
             </div>
-            
+
+            <div class="podcast-card">
+              <p class="podcast-topic">Input: 唐僧师徒四人受困断崖险境，偶遇神秘长者笑谈间渡河。</p>
+              <div class="video-wrapper">
+                <video id="video3" controls playsinline>
+                  <source src="static/videos/xyj.mp4" type="video/mp4">
+                </video>
+              </div>
             </div>
+
+            <div class="podcast-card">
+              <p class="podcast-topic">Input: 钢琴家苏羽在老城区雨夜街角重逢昔日旧爱。</p>
+              <div class="video-wrapper">
+                <video id="video4" controls playsinline>
+                  <source src="static/videos/love_book.mp4" type="video/mp4">
+                </video>
+              </div>
+            </div>
+
+          </div>
         </div>
-
         <div class="content-section" style="margin-bottom: 0;">
           <h2 class="section-header">Citation</h2>
           <pre><code>@article{
